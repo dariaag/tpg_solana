@@ -84,12 +84,13 @@ async function processFile(filePath: string) {
     }
 
     const outPath = path.join(__dirname, `./abi/${name}.ts`);
-    await fs.writeFile(outPath, output, "utf-8");
+
     const formattedOutput = await prettier.format(output, {
       parser: "typescript",
       singleQuote: true,
       trailingComma: "all",
     });
+    await fs.writeFile(outPath, formattedOutput, "utf-8");
     console.log(`File has been written and formatted at ${outPath}`);
   } catch (error) {
     console.error("Error:", error);
