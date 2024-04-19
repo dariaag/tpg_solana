@@ -1,3 +1,5 @@
+import { string } from "@dao-xyz/borsh";
+
 // Import required modules
 const fs = require("fs").promises;
 const path = require("path");
@@ -39,8 +41,8 @@ async function processFile(filePath: string) {
       let accounts = ins.accounts;
       let data = ins.args;
 
-      let accountsObj = {};
-      let dataObj = {};
+      let accountsObj = {} as any;
+      let dataObj = {} as any;
       accounts.forEach(
         (acc: { name: string | number }, idx: any) =>
           (accountsObj[acc.name] = idx)
@@ -66,8 +68,6 @@ async function processFile(filePath: string) {
         "{\n    " +
         Object.entries(ins.data)
           .map(([key, type]) => {
-            //console.log(ins.data);
-
             if (typeof type === "object") {
               type = JSON.stringify(type);
             }
